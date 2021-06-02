@@ -1,25 +1,12 @@
 from kivymd.app import MDApp
-from kivymd.uix.floatlayout import MDFloatLayout
-from kivymd.uix.label import MDLabel
 from kivy.lang import Builder
-from kivy.uix.label import Label
-from kivymd.uix.textfield import MDTextField
-
 from association import screen_nav
-from kivy.uix.popup import Popup
 from kivy.properties import ObjectProperty
-from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen, ScreenManager
-from kivymd.uix.dialog import MDDialog
-from kivymd.uix.list import OneLineListItem, TwoLineListItem
+from kivy.uix.screenmanager import Screen
 from kivymd.uix.button import MDFlatButton
 import pyrebase
 from datetime import datetime
-from kivymd.uix.menu import MDDropdownMenu
-from kivymd.uix.gridlayout import MDGridLayout
-from kivymd.uix.datatables import MDDataTable
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.tab import MDTabsBase
 
 firebaseConfig = {
     'apiKey': "AIzaSyCVxh3zfkNPlbPTaUmhHgIRISlWl6l4qBY",
@@ -148,7 +135,6 @@ class DoctorLog(Screen):
     def patientD_btn(self):
         self.manager.current = 'pprofile2'
 
-
     pass
 
 
@@ -217,9 +203,9 @@ class ProfileDR(Screen):
                     db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                         "infection").set("Antibiotics")
                 elif int(str(user.val()['wbc'])) > 20000:
-                    d=db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
+                    d = db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                         "cancer").get()
-                    newvalue=float(d.val())+0.2
+                    newvalue = float(d.val()) + 0.2
                     db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                         "cancer").set("0.1")
         elif int(str(user.val()['Age'])) >= 4 and int(str(user.val()['Age'])) <= 17:
@@ -273,17 +259,18 @@ class ProfileDR(Screen):
             newvalue = float(d.val()) + 0.2
             db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "cancer").set(str(newvalue))
-        elif int(str(user.val()['neutrophil'])) >54:
+        elif int(str(user.val()['neutrophil'])) > 54:
             self.manager.screens[8].ids.neutrophil.text_color = (209, 10, 25, 1)
             db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "infection").set("Antibiotics")
+
     def lymphocytes_test(self):
         user = db.child("patients").child(self.manager.screens[8].ids.idnum.text).get()
         if int(str(user.val()['neutrophil'])) < 36:
             self.manager.screens[8].ids.lymphocytes.text_color = (210, 210, 10, 1)
             db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "Blood Creation problems").set("1 table of 10mg B12 and 1 table 5mg folic acid once a day for month")
-        elif int(str(user.val()['neutrophil'])) >54:
+        elif int(str(user.val()['neutrophil'])) > 54:
             self.manager.screens[8].ids.lymphocytes.text_color = (209, 10, 25, 1)
             d = db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "cancer").get()
@@ -301,7 +288,7 @@ class ProfileDR(Screen):
                 "anemia").set("2 tables 10mg B12 once a day for month")
             db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "bleeding").set("direct immediately to hospital")
-        elif float(str(user.val()['rbc'])) >6:
+        elif float(str(user.val()['rbc'])) > 6:
             self.manager.screens[8].ids.rbc.text_color = (209, 10, 25, 1)
             db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "Blood Creation problems").set("1 table of 10mg B12 and 1 table 5mg folic acid once a day for month")
@@ -320,7 +307,7 @@ class ProfileDR(Screen):
                     "anemia").set("2 tables 10mg B12 once a day for month")
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "bleeding").set("direct immediately to hospital")
-            elif int(str(user.val()['hct'])) >54:
+            elif int(str(user.val()['hct'])) > 54:
                 self.manager.screens[8].ids.hct.text_color = (209, 10, 25, 1)
                 if str(user.val()['Smoker']) == 'yes':
                     db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
@@ -334,7 +321,7 @@ class ProfileDR(Screen):
                     "anemia").set("2 tables 10mg B12 once a day for month")
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "bleeding").set("direct immediately to hospital")
-            elif int(str(user.val()['hct'])) >47:
+            elif int(str(user.val()['hct'])) > 47:
                 self.manager.screens[8].ids.hct.text_color = (209, 10, 25, 1)
                 if str(user.val()['Smoker']) == 'yes':
                     db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
@@ -343,7 +330,7 @@ class ProfileDR(Screen):
     def urea_test(self):
         user = db.child("patients").child(self.manager.screens[8].ids.idnum.text).get()
         if str(user.val()['Origin']) == "2":
-            if str(user.val()['Pregnant'])== "yes":
+            if str(user.val()['Pregnant']) == "yes":
                 if int(str(user.val()['urea'])) < 14:
                     self.manager.screens[8].ids.urea.text_color = (210, 210, 10, 1)
                     db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
@@ -353,7 +340,7 @@ class ProfileDR(Screen):
                     db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                         "pregnancy may cause lower urine ").set("no worries")
 
-            elif str(user.val()['Pregnant'])== "no":
+            elif str(user.val()['Pregnant']) == "no":
                 if int(str(user.val()['urea'])) < 17:
                     self.manager.screens[8].ids.urea.text_color = (210, 210, 10, 1)
                     db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
@@ -362,7 +349,7 @@ class ProfileDR(Screen):
                         "liver problem").set("direct to liver specialist")
 
 
-            elif int(str(user.val()['urea'])) >47:
+            elif int(str(user.val()['urea'])) > 47:
                 self.manager.screens[8].ids.urea.text_color = (209, 10, 25, 1)
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "Kidney problem").set("balance sugar in blood")
@@ -379,7 +366,7 @@ class ProfileDR(Screen):
                     "anemia").set("2 tables 10mg B12 once a day for month")
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "bleeding").set("direct immediately to hospital")
-            elif int(str(user.val()['urea'])) >43:
+            elif int(str(user.val()['urea'])) > 43:
                 self.manager.screens[8].ids.urea.text_color = (209, 10, 25, 1)
                 if str(user.val()['Smoker']) == 'yes':
                     db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
@@ -423,25 +410,24 @@ class ProfileDR(Screen):
 
     def creatine_test(self):
 
-        result="none"
+        result = "none"
 
         user = db.child("patients").child(self.manager.screens[8].ids.idnum.text).get()
         if int(str(user.val()['Age'])) >= 18 and int(str(user.val()['Age'])) <= 59:
-            if float(str(user.val()['creatine'])) <0.6:
+            if float(str(user.val()['creatine'])) < 0.6:
                 result = 'low'
-            elif float(str(user.val()['creatine'])) >1:
-                result ='high'
+            elif float(str(user.val()['creatine'])) > 1:
+                result = 'high'
         elif int(str(user.val()['Age'])) >= 3 and int(str(user.val()['Age'])) <= 17:
-            if float(str(user.val()['creatine'])) <0.5:
+            if float(str(user.val()['creatine'])) < 0.5:
                 result = 'low'
-            elif float(str(user.val()['creatine'])) >1:
-                result ='high'
+            elif float(str(user.val()['creatine'])) > 1:
+                result = 'high'
         elif int(str(user.val()['Age'])) <= 60:
-            if float(str(user.val()['creatine'])) <0.6:
+            if float(str(user.val()['creatine'])) < 0.6:
                 result = 'low'
-            elif float(str(user.val()['creatine'])) >1.2:
-                result ='high'
-
+            elif float(str(user.val()['creatine'])) > 1.2:
+                result = 'high'
 
         if result == 'high':
             self.manager.screens[8].ids.creatine.text_color = (209, 10, 25, 1)
@@ -452,7 +438,7 @@ class ProfileDR(Screen):
             db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "Kidney problem").set("balance sugar in blood")
 
-        elif result == 'low' :
+        elif result == 'low':
             self.manager.screens[8].ids.creatine.text_color = (210, 210, 10, 1)
             db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "low protein consumption").set("direct to nutritionist")
@@ -464,7 +450,7 @@ class ProfileDR(Screen):
                 self.manager.screens[8].ids.lymphocytes.text_color = (210, 210, 10, 1)
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "Insufficient iron consumption ").set("Direct to nutritionist ")
-            elif int(str(user.val()['neutrophil'])) >128:
+            elif int(str(user.val()['neutrophil'])) > 128:
                 self.manager.screens[8].ids.lymphocytes.text_color = (209, 10, 25, 1)
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "iron poisoning").set("Direct immediately to hospital")
@@ -473,41 +459,40 @@ class ProfileDR(Screen):
                 self.manager.screens[8].ids.lymphocytes.text_color = (210, 210, 10, 1)
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "Insufficient iron consumption ").set("2 tables 10mg B12 a day for month ")
-            elif int(str(user.val()['neutrophil'])) >160:
+            elif int(str(user.val()['neutrophil'])) > 160:
                 self.manager.screens[8].ids.lymphocytes.text_color = (209, 10, 25, 1)
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "iron poisoning").set("Direct immediately to hospital")
 
     def hdl_test(self):
-        result="none"
+        result = "none"
 
         user = db.child("patients").child(self.manager.screens[8].ids.idnum.text).get()
         if int(str(user.val()['Origin'])) == 3:
             if str(user.val()['Gender']) == 'Female':
-                if int(str(user.val()['hdl'])) <41:
+                if int(str(user.val()['hdl'])) < 41:
                     result = 'low'
-                elif float(str(user.val()['hdl'])) >99:
-                    result ='high'
+                elif float(str(user.val()['hdl'])) > 99:
+                    result = 'high'
 
             elif str(user.val()['Gender']) == 'Male':
-                if int(str(user.val()['hdl'])) <35:
+                if int(str(user.val()['hdl'])) < 35:
                     result = 'low'
-                elif float(str(user.val()['hdl'])) >74:
-                    result ='high'
+                elif float(str(user.val()['hdl'])) > 74:
+                    result = 'high'
 
         elif int(str(user.val()['Origin'])) != 3:
             if str(user.val()['Gender']) == 'Female':
-                if int(str(user.val()['hdl'])) <34:
+                if int(str(user.val()['hdl'])) < 34:
                     result = 'low'
-                elif float(str(user.val()['hdl'])) >82:
-                    result ='high'
+                elif float(str(user.val()['hdl'])) > 82:
+                    result = 'high'
 
             elif str(user.val()['Gender']) == 'Male':
-                if int(str(user.val()['hdl'])) <29:
+                if int(str(user.val()['hdl'])) < 29:
                     result = 'low'
-                elif float(str(user.val()['hdl'])) >62:
-                    result ='high'
-
+                elif float(str(user.val()['hdl'])) > 62:
+                    result = 'high'
 
         if result == 'high':
             self.manager.screens[8].ids.hdl.text_color = (209, 10, 25, 1)
@@ -523,13 +508,13 @@ class ProfileDR(Screen):
 
     def alp_test(self):
 
-        result="none"
+        result = "none"
         user = db.child("patients").child(self.manager.screens[8].ids.idnum.text).get()
         if int(str(user.val()['Origin'])) == 2:
-            if int(str(user.val()['alp'])) <60:
+            if int(str(user.val()['alp'])) < 60:
                 result = 'low'
-            elif float(str(user.val()['alp'])) >120:
-                result ='high'
+            elif float(str(user.val()['alp'])) > 120:
+                result = 'high'
 
 
         elif int(str(user.val()['Origin'])) != 2:
@@ -538,14 +523,13 @@ class ProfileDR(Screen):
             elif float(str(user.val()['alp'])) > 90:
                 result = 'high'
 
-
         if result == 'high':
             self.manager.screens[8].ids.alp.text_color = (209, 10, 25, 1)
             db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "liver problem").set("direct to liver specialist")
             db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "biliary tract problem").set("direct to liver specialist")
-            if str(user.val()['Gender']) =="Female":
+            if str(user.val()['Gender']) == "Female":
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "Pregnancy").set("Patient might be pregnant")
             db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
@@ -578,39 +562,27 @@ class ProfileDR(Screen):
         self.alp_test()
 
         if str(user.val()['Origin']) == '1':
-            self.manager.screens[8].ids.nationality.text='Nationality:'+' Israelian'
+            self.manager.screens[8].ids.nationality.text = 'Nationality:' + ' Israelian'
         elif str(user.val()['Origin']) == '2':
-            self.manager.screens[8].ids.nationality.text='Nationality:'+'Easten'
+            self.manager.screens[8].ids.nationality.text = 'Nationality:' + 'Easten'
         elif str(user.val()['Origin']) == '3':
-            self.manager.screens[8].ids.nationality.text='Nationality:'+'Ethiupian'
+            self.manager.screens[8].ids.nationality.text = 'Nationality:' + 'Ethiupian'
 
     def printteatment(self):
 
         diseases = db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").get()
 
-        if float(diseases.val()['cancer']) >=0.2:
+        if float(diseases.val()['cancer']) >= 0.2:
             db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "cancer").set("Enterctinib")
 
-        self.manager.screens[8].ids.treat.text+=" \n"
-        counter=0
+        self.manager.screens[8].ids.treat.text += " \n"
+        counter = 0
         for i in diseases.each():
-            self.manager.screens[8].ids.treat.text+=" "+str(i.key())+": "+str(i.val())+", "
-            counter+=1
-            print("counter")
+            self.manager.screens[8].ids.treat.text += " " + str(i.key()) + ": " + str(i.val()) + ", "
+            counter += 1
             if ((int(counter)) % 4) == 0:
                 self.manager.screens[8].ids.treat.text += " \n"
-
-
-
-
-
-
-
-
-
-
-
 
     pass
 
@@ -817,7 +789,8 @@ class PProfile(Screen):
         elif int(self.manager.screens[6].ids.gendercheck.text) != 1:
             pop = MDDialog(title='Error!', text='check the id number first')
             pop.open()
-        elif str(self.manager.screens[6].ids.gender.text) == "Male" and self.manager.screens[6].ids.pregnant.text == "yes":
+        elif str(self.manager.screens[6].ids.gender.text) == "Male" and self.manager.screens[
+            6].ids.pregnant.text == "yes":
             pop = MDDialog(title='Error!', text='Male can not be pregnant')
             pop.open()
         elif self.manager.screens[6].ids.pregnant.text == "yes" or self.manager.screens[6].ids.pregnant.text == "no":
@@ -864,9 +837,9 @@ class PProfile(Screen):
             pop.open()
         elif int(self.manager.screens[6].ids.idnumcheck.text) and int(
                 self.manager.screens[6].ids.pnamecheck.text) and int(self.manager.screens[6].ids.agecheck.text) and int(
-                self.manager.screens[6].ids.smokercheck.text) and int(
-                self.manager.screens[6].ids.diabetescheck.text) and int(
-                self.manager.screens[6].ids.bphcheck.text) and int(self.manager.screens[6].ids.origincheck.text):
+            self.manager.screens[6].ids.smokercheck.text) and int(
+            self.manager.screens[6].ids.diabetescheck.text) and int(
+            self.manager.screens[6].ids.bphcheck.text) and int(self.manager.screens[6].ids.origincheck.text):
             pop = MDDialog(title='Success!', text='The patient profile has been created !')
             pop.open()
             self.manager.screens[6].ids.pname.text = ''
@@ -1289,6 +1262,78 @@ class MyProfile(Screen):
 
     pass
 
+def ID_check(idnumber):
+
+    if len(idnumber)!=9:
+        pop = MDDialog(title='Error!', text='invalid ID number')
+        pop.open()
+    elif numbersonly(idnumber)!= 1:
+        pop = MDDialog(title='Error!', text='ID can only contain numbers')
+        pop.open()
+    elif find_user(idnumber) == 1:
+        pop = MDDialog(title='Error!', text='This ID number already in the system')
+        pop.open()
+    else:
+        return 1
+
+
+def count_digits(x):
+    countnumbers=0
+    digits=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    for i in range(0,len(x)):
+        if x[i] in digits:
+            countnumbers+=1
+
+    return countnumbers
+
+
+def username_check(username):
+
+    if len(username)<6 or len(username)>8:
+        pop = MDDialog(title='Error!', text='username length is not valid')
+        pop.open()
+    elif count_digits(username)>2:
+        pop = MDDialog(title='Error!', text='Too many digits in username')
+        pop.open()
+
+    elif username_exist(username) ==1:
+        pop = MDDialog(title='Error!', text='Username already existing')
+        pop.open()
+
+    else:
+        return 1
+
+def hasletter_check(password):
+
+    if str(password).islower() or str(password).isupper():
+        return 1
+    else:
+        return 0
+
+def hasspecial_check(password):
+    l = ['-', '+', '_', '!', '@', '#', '$', '%', '^', '*', '(', ')']
+    flag=0
+    for i in range(0,len(password)):
+        if password[i] in l:
+            flag=1
+    if flag == 1:
+        return 1
+    else:
+        return 0
+def password_check(password):
+
+    if len(password)<8 or len(password)>10:
+        pop = MDDialog(title='Error!', text='password length is not valid')
+        pop.open()
+    elif hasletter_check(password)!= 1:
+        pop = MDDialog(title='Error!', text='password should have at lease one character ')
+        pop.open()
+    elif hasspecial_check(password)!=1:
+        pop = MDDialog(title='Error!', text='password should have at lease one special character ')
+        pop.open()
+    else:
+        return 1
+
 
 ##login window properties
 class RegiWindo(Screen):
@@ -1404,11 +1449,6 @@ class reportprob(Screen):
         db.child('Report').child(email.split("@")[0]).set(data)
 
     pass
-
-
-
-
-
 
 
 class Doctor(MDApp):
