@@ -63,7 +63,7 @@ ScreenManager:
                         OneLineIconListItem:
                             text:'Log in'
                             on_press:
-                                root.manager.current='pprofile'
+                                root.manager.current='doctorlog'
                             IconLeftWidget:
                                 icon:'login'
                               
@@ -198,18 +198,18 @@ ScreenManager:
 
     MDRectangleFlatButton:
         id:patientdiagnosist
-        text:'Patiens Diagnosist'
+        text:'Add Patient tests'
         pos_hint:{'center_x':0.9,'top':0.6}
         size_hint:0.2,0.2
         on_release:
             root.patientD_btn()
             
     MDRectangleFlatButton:
-        text:'dialog for patient'
+        text:'Patient Diagnosis'
         pos_hint:{'center_x':0.9,'top':0.4}
         size_hint:0.2,0.2
         on_release:
-            root.patientDialog_btn()
+            root.patientDiagnosist_btn()
 
 
        
@@ -563,7 +563,7 @@ ScreenManager:
         size_hint_x:None
         width:150
         length:200
-        max_text_length:1
+        max_text_length:3
         id:fever
         multiline:False
     MDLabel:
@@ -575,6 +575,44 @@ ScreenManager:
         size_hint:0.08,0.05
         on_release:
             root.patientfever_btn()
+
+    MDTextField:
+        hint_text:"Gender(Male,Female)"
+        pos_hint:{'center_x':0.5,'center_y':0.7}
+        size_hint_x:None
+        width:150
+        length:200
+        max_text_length:5
+        id:gender
+        multiline:False
+    MDLabel:
+        id:gendercheck
+        text:'0'
+    MDRectangleFlatButton:
+        text:'Check'
+        pos_hint:{'center_x':0.7,'center_y':0.7}
+        size_hint:0.08,0.05
+        on_release:
+            root.patientGender_btn()
+    MDTextField:
+        hint_text:"pregnant?(Yes/No)"
+        pos_hint:{'center_x':0.5,'center_y':0.6}
+        size_hint_x:None
+        width:150
+        length:200
+        max_text_length:3
+        id:pregnant
+        multiline:False
+    MDLabel:
+        id:pregnantcheck
+        text:'0'
+    MDRectangleFlatButton:
+        text:'Check'
+        pos_hint:{'center_x':0.7,'center_y':0.6}
+        size_hint:0.08,0.05
+        on_release:
+            root.patientPregnant_btn()
+
 
 
                                                   
@@ -815,13 +853,15 @@ ScreenManager:
         max_text_length:3
         id:alp
         multiline:False
-        
+    MDLabel:
+        id:alpcheck
+        text:'0'    
     MDRectangleFlatButton:
         text:'Check'
         pos_hint:{'center_x':0.7,'center_y':0.3}
         size_hint:0.08,0.05
         on_release:
-            root.ID_btn()
+            root.alp_btn()
 
 
 
@@ -884,11 +924,16 @@ ScreenManager:
         pos_hint:{'center_x':0.2,'center_y':0.65}
         size_hint_x:None
         width:300      
-
+    MDLabel:
+        id:gender
+        text:'Gender:'
+        pos_hint:{'center_x':0.2,'center_y':0.6}
+        size_hint_x:None
+        width:300   
     MDLabel:
         id:nationality
         text:'Nationality:'
-        pos_hint:{'center_x':0.2,'center_y':0.6}
+        pos_hint:{'center_x':0.2,'center_y':0.55}
         size_hint_x:None
         width:300      
 
@@ -914,58 +959,76 @@ ScreenManager:
         width:300      
 
     MDLabel:
-        id:wbc
-        text:'WBC:'
+        id:pregnant
+        text:'Pregnant:'
         pos_hint:{'center_x':0.45,'center_y':0.6}
         size_hint_x:None
+        
         width:300      
-
+    MDLabel:
+        id:wbc
+        text:'WBC:'
+        pos_hint:{'center_x':0.45,'center_y':0.55}
+        size_hint_x:None
+        theme_text_color:'Custom'
+        width:300     
     MDLabel:
         id:neutrophil
         text:'Neutrophil:'
         pos_hint:{'center_x':0.75,'center_y':0.75}
         size_hint_x:None
+        theme_text_color:'Custom'
         width:300      
 
     MDLabel:
-        id:lymphocytes
-        text:'Lymphocytes:'
+        id:fever
+        text:'Fever:'
         pos_hint:{'center_x':0.75,'center_y':0.7}
         size_hint_x:None
         width:300      
-
+    MDLabel:
+        id:lymphocytes
+        text:'Lymphocytes:'
+        pos_hint:{'center_x':0.75,'center_y':0.65}
+        size_hint_x:None
+        theme_text_color:'Custom'
+        width:300     
     MDLabel:
         id:rbc
         text:'RBC:'
-        pos_hint:{'center_x':0.75,'center_y':0.65}
+        pos_hint:{'center_x':0.75,'center_y':0.6}
         size_hint_x:None
+        theme_text_color:'Custom'
         width:300      
 
     MDLabel:
         id:hct
         text:'HCT:'
-        pos_hint:{'center_x':0.75,'center_y':0.6}
+        pos_hint:{'center_x':0.75,'center_y':0.55}
         size_hint_x:None
+        theme_text_color:'Custom'
         width:300      
 
     MDLabel:
         id:urea
         text:'Urea:'
-        pos_hint:{'center_x':1,'center_y':0.75}
+        pos_hint:{'center_x':1,'center_y':0.8}
         size_hint_x:None
+        theme_text_color:'Custom'
         width:300      
 
     MDLabel:
         id:hemoglobin
         text:'Hemoglobin:'
-        pos_hint:{'center_x':1,'center_y':0.7}
+        pos_hint:{'center_x':1,'center_y':0.75}
         size_hint_x:None
+        theme_text_color:'Custom'
         width:300      
 
     MDLabel:
         id:creatine
         text:'Creatine:'
-        pos_hint:{'center_x':1,'center_y':0.65}
+        pos_hint:{'center_x':1,'center_y':0.7}
         size_hint_x:None
         theme_text_color:'Custom'
         width:300      
@@ -973,21 +1036,39 @@ ScreenManager:
     MDLabel:
         id:iron
         text:'Iron:'
-        pos_hint:{'center_x':1,'center_y':0.6}
+        pos_hint:{'center_x':1,'center_y':0.65}
         size_hint_x:None
+        theme_text_color:'Custom'
         width:300      
 
     MDLabel:
         id:hdl
         text:'HDL:'
+        pos_hint:{'center_x':1,'center_y':0.6}
+        size_hint_x:None
+        theme_text_color:'Custom'
+        width:300
+    MDLabel:
+        id:alp
+        text:'AlP:'
         pos_hint:{'center_x':1,'center_y':0.55}
         size_hint_x:None
-        width:300      
+        theme_text_color:'Custom'
+        width:300
+               
+    MDLabel:
+        id:treat
+        text:'Diagnosist & Treatment:'
+        pos_hint:{'center_x':0.5,'center_y':0.25}
+        size_hint_x:None
+        width:700
+        length:300
+                
 
 
                                                      
     MDRectangleFlatButton:
-        text:'Confirm'
+        text:'Save'
         pos_hint:{'x':0.3,'y':0.0} 
         size_hint:0.2,0.1
         on_release:
@@ -995,7 +1076,7 @@ ScreenManager:
             
 
     MDRectangleFlatButton:
-        text:'Cancel'
+        text:'Back'
         pos_hint:{'x':0.5,'y':0.0} 
         size_hint:0.2,0.1
         on_release:
