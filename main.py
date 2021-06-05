@@ -1350,7 +1350,7 @@ class RegiWindo(Screen):
                 users_data = {'Name': self.fullname_box.text, 'IDnum': self.id_box.text,
                               'Username': self.username_box.text, 'DOB': self.dob.text, 'pass': self.password_box.text
                     , 'Class': '11',
-                              'Title': str('Student')}
+                              'Title': str('Doctor')}
                 db.child("users").child(str(self.id_box.text)).set(users_data)
                 if str(self.id_box.text) == ("315198564"):
                     db.child("users").child("315198564").update({'Title': 'Manager'})
@@ -1403,26 +1403,27 @@ class Loginwindo(Screen):
             ###init Tool bar names in whole logging in##
             self.manager.screens[3].ids.managertoolbar.title = 'Welcome' + ' ' + user.val()['Name']
 
-            self.manager.screens[4].ids.teachername.title = 'Welcome' + ' ' + user.val()['Name']
+            self.manager.screens[4].ids.test.title = 'Welcome' + ' '+str(user.val()['Title'])+'.'+ user.val()['Name']
 
-            ###Page 9 change name ###
-            self.manager.screens[9].ids.username.text = user.val()['Username']
 
-            ###Page 10 change DOB ###
-            self.manager.screens[10].ids.username.text = user.val()['Username']
+            '''self.manager.screens[7].ids.username.text = user.val()['Name']'''
+
+
+            '''self.manager.screens[10].ids.username.text = user.val()['Name']
             ###page 11 Student page ###
             self.manager.screens[11].ids.studenttoolbar.title = 'Welcome' + ' ' + user.val()['Name']
             self.manager.screens[11].ids.username.text = user.val()['Username']
-
+            '''
             db.child("Online").child(self.username_box.text).set("ok")
 
-            if str('Teacher') == str(user.val()['Title']):
+            if str('Doctor') == str(user.val()['Title']):
                 logto = 1
+                self.manager.current = 'myprofile'
             if str('Manager') == str(user.val()['Title']):
                 logto = 2
 
             if logto == 2:
-                self.manager.current = 'mangerlog'
+                self.manager.current = 'MyProfile'
 
 
         else:
