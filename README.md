@@ -1,7 +1,7 @@
 #Group 16 project :
 intro :
 
-in this project we build an app to associate the online education system 
+in this project we build an app to associate the online Medical system 
 this app is built for three types of users {Manager wich is an idefined user , teachers and students},
 of course as three users means different level of premmisions , as a manager he can {Make announcement , Delete user , promote others "will be explained in teacher section" ,
 create class schedual ,and change things in his profile }
@@ -28,7 +28,6 @@ regardless
 developer team:
 Morad al teaha
 Abdalbaset abo scoot
-Noor watad
 
 Data base has been killed on 20/01/2020;
 project has been done and delivered it's no longer available and will not recieve further updates.
