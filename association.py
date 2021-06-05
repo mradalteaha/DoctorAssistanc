@@ -7,9 +7,9 @@ ScreenManager:
     DoctorLog:
     MyProfile:
     PassReset:
-    PProfile:
-    PProfile2:
-    ProfileDR:
+    CreatePatientProfile:
+    AddPatientTests:
+    StreamPatientDiagnosis:
    
 
 
@@ -63,7 +63,7 @@ ScreenManager:
                         OneLineIconListItem:
                             text:'Log in'
                             on_press:
-                                root.manager.current='doctorlog'
+                                root.manager.current='Login'
                             IconLeftWidget:
                                 icon:'login'
                               
@@ -146,22 +146,32 @@ ScreenManager:
     MDToolbar:
         title: 'Log In'
         elevation: 10
+        pos_hint: {'top': 1}
 
     MDTextField:
         hint_text:"Username"
-        pos_hint:{'center_x':0.5,'center_y':0.6}
+        pos_hint:{'center_x':0.5,'center_y':0.7}
         size_hint_x:None
         width:300
         id:username
         multiline:False
     MDTextField:
         hint_text:"Password"
-        pos_hint:{'center_x':0.5,'center_y':0.5}
+        pos_hint:{'center_x':0.5,'center_y':0.6}
         size_hint_x:None
         width:300
         id:pass_word
         password:True
         multiline:False
+
+    MDTextField:
+        hint_text:"ID number"
+        pos_hint:{'center_x':0.5,'center_y':0.5}
+        size_hint_x:None
+        width:300
+        id:idnum
+        max_text_length:9
+        multiline:False    
 
     MDRectangleFlatButton:
         text:'Log In'
@@ -246,12 +256,6 @@ ScreenManager:
 
                 ScrollView:
                     MDList:
-                        OneLineIconListItem:
-                            text:'Profile'
-                            on_release:
-                                root.my_profile() 
-                            IconLeftWidget:
-                                icon:'face-profile'
                         OneLineIconListItem:
                             text:'Home Page'
                             on_press:
@@ -419,7 +423,7 @@ ScreenManager:
             root.manager.current='menu'        
                                  
 
-<PProfile>
+<CreatePatientProfile>
     name:'pprofile'
     
     MDToolbar:
@@ -630,7 +634,7 @@ ScreenManager:
             root.cancel_button()  
 
 
-<PProfile2>
+<AddPatientTests>
     name:'pprofile2'
     
     MDToolbar:
@@ -882,7 +886,7 @@ ScreenManager:
             root.cancel_btn()  
 
 
-<ProfileDR>
+<StreamPatientDiagnosis>
     name:'profileDR'
     MDToolbar:
         title: 'Patient Diagnosist and treatment'
@@ -1072,7 +1076,7 @@ ScreenManager:
         pos_hint:{'x':0.3,'y':0.0} 
         size_hint:0.2,0.1
         on_release:
-            root.confirm_btn()
+            root.SaveToFile_btn()
             
 
     MDRectangleFlatButton:
@@ -1081,5 +1085,7 @@ ScreenManager:
         size_hint:0.2,0.1
         on_release:
             root.cancel_btn()  
+            
+            
             
 """
