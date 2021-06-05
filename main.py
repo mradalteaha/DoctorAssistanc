@@ -77,11 +77,11 @@ def numbersonly(something):
     return 1
 
 
-def grantAccess(username, password):
+def grantAccess(username, password,idnumber):
     users = db.child("users").get()
     grant_Access = 0
     for i in users.each():
-        if (str(username) == str(i.val()['Username'])) and (str(password) == str(i.val()['pass'])):
+        if (str(username) == str(i.val()['Username'])) and (str(password) == str(i.val()['pass'])) and (str(idnumber) == str(i.val()['IDnum'])):
             grant_Access = 1
         if (str(username) == str(i.val()['Username'])) and (str(password) != str(i.val()['pass'])):
             grant_Access = 0
@@ -138,7 +138,7 @@ class DoctorLog(Screen):
     pass
 
 
-class ProfileDR(Screen):
+class StreamPatientDiagnosis(Screen):
     def ID_btn(self):  ##checking the id number if it's valid and inserting it to the database
         if self.manager.screens[8].ids.idnum.text == '':
             pop = MDDialog(title='Error!', text='Fill the field first')
@@ -156,34 +156,34 @@ class ProfileDR(Screen):
             pop.open()
             print(self.manager.screens[8].ids)
             user = db.child("patients").child(self.manager.screens[8].ids.idnum.text).get()
-            self.manager.screens[8].ids.name.text += ' ' + str(user.val()['Name'])
-            self.manager.screens[8].ids.idnumb.text += ' ' + str(user.val()['IDnum'])
-            self.manager.screens[8].ids.age.text += ' ' + str(user.val()['Age'])
-            self.manager.screens[8].ids.gender.text += ' ' + str(user.val()['Gender'])
-            self.manager.screens[8].ids.nationality.text += ' ' + str(user.val()['Origin'])
-            self.manager.screens[8].ids.smoker.text += ' ' + str(user.val()['Smoker'])
-            self.manager.screens[8].ids.bph.text += ' ' + str(user.val()['blood pressure history'])
-            self.manager.screens[8].ids.diabetes.text += ' ' + str(user.val()['Diabetes in family'])
-            self.manager.screens[8].ids.pregnant.text += ' ' + str(user.val()['Pregnant'])
-            self.manager.screens[8].ids.wbc.text += ' ' + str(user.val()['wbc'])
-            self.manager.screens[8].ids.fever.text += ' ' + str(user.val()['Fever'])
-            self.manager.screens[8].ids.neutrophil.text += ' ' + str(user.val()['neutrophil'])
-            self.manager.screens[8].ids.lymphocytes.text += ' ' + str(user.val()['lymphocytes'])
-            self.manager.screens[8].ids.rbc.text += ' ' + str(user.val()['rbc'])
-            self.manager.screens[8].ids.hct.text += ' ' + str(user.val()['hct'])
-            self.manager.screens[8].ids.urea.text += ' ' + str(user.val()['urea'])
-            self.manager.screens[8].ids.hemoglobin.text += ' ' + str(user.val()['hemoglobin'])
-            self.manager.screens[8].ids.creatine.text += ' ' + str(user.val()['creatine'])
-            self.manager.screens[8].ids.iron.text += ' ' + str(user.val()['iron'])
-            self.manager.screens[8].ids.hdl.text += ' ' + str(user.val()['hdl'])
-            self.manager.screens[8].ids.alp.text += ' ' + str(user.val()['alp'])
+            self.manager.screens[8].ids.name.text = 'Name: ' + str(user.val()['Name'])
+            self.manager.screens[8].ids.idnumb.text = 'ID: ' + str(user.val()['IDnum'])
+            self.manager.screens[8].ids.age.text = 'Age: ' + str(user.val()['Age'])
+            self.manager.screens[8].ids.gender.text = 'Gender: ' + str(user.val()['Gender'])
+            self.manager.screens[8].ids.nationality.text = 'Nationality: ' + str(user.val()['Origin'])
+            self.manager.screens[8].ids.smoker.text = 'Smoker: ' + str(user.val()['Smoker'])
+            self.manager.screens[8].ids.bph.text = 'Blood pressure: ' + str(user.val()['blood pressure history'])
+            self.manager.screens[8].ids.diabetes.text = 'Diabetes: ' + str(user.val()['Diabetes in family'])
+            self.manager.screens[8].ids.pregnant.text = 'Pregnant: ' + str(user.val()['Pregnant'])
+            self.manager.screens[8].ids.wbc.text = 'WBC: ' + str(user.val()['wbc'])
+            self.manager.screens[8].ids.fever.text = 'Neutrophil: ' + str(user.val()['Fever'])
+            self.manager.screens[8].ids.neutrophil.text = 'Fever: ' + str(user.val()['neutrophil'])
+            self.manager.screens[8].ids.lymphocytes.text = 'Lymphocytes: ' + str(user.val()['lymphocytes'])
+            self.manager.screens[8].ids.rbc.text = 'RBC: ' + str(user.val()['rbc'])
+            self.manager.screens[8].ids.hct.text = 'HCT: ' + str(user.val()['hct'])
+            self.manager.screens[8].ids.urea.text = 'Urea: ' + str(user.val()['urea'])
+            self.manager.screens[8].ids.hemoglobin.text = 'Hemoglobin: ' + str(user.val()['hemoglobin'])
+            self.manager.screens[8].ids.creatine.text = 'Creatine: ' + str(user.val()['creatine'])
+            self.manager.screens[8].ids.iron.text = 'Iron: ' + str(user.val()['iron'])
+            self.manager.screens[8].ids.hdl.text = 'HDL: ' + str(user.val()['hdl'])
+            self.manager.screens[8].ids.alp.text = 'AlP: ' + str(user.val()['alp'])
 
             self.diagnosist()
             self.printteatment()
 
 
         else:
-            pop = MDDialog(title='Error!', text='This patient already existing')
+            pop = MDDialog(title='Error!', text='This patient does not exist in the database')
             pop.open()
 
     def wbc_test(self):
@@ -450,7 +450,7 @@ class ProfileDR(Screen):
                 self.manager.screens[8].ids.lymphocytes.text_color = (210, 210, 10, 1)
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "Insufficient iron consumption ").set("Direct to nutritionist ")
-            elif int(str(user.val()['neutrophil'])) > 128:
+            elif int(str(user.val()['iron'])) > 128:
                 self.manager.screens[8].ids.lymphocytes.text_color = (209, 10, 25, 1)
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "iron poisoning").set("Direct immediately to hospital")
@@ -459,7 +459,7 @@ class ProfileDR(Screen):
                 self.manager.screens[8].ids.lymphocytes.text_color = (210, 210, 10, 1)
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "Insufficient iron consumption ").set("2 tables 10mg B12 a day for month ")
-            elif int(str(user.val()['neutrophil'])) > 160:
+            elif int(str(user.val()['iron'])) > 160:
                 self.manager.screens[8].ids.lymphocytes.text_color = (209, 10, 25, 1)
                 db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                     "iron poisoning").set("Direct immediately to hospital")
@@ -584,10 +584,77 @@ class ProfileDR(Screen):
             if ((int(counter)) % 4) == 0:
                 self.manager.screens[8].ids.treat.text += " \n"
 
+    def cancel_btn(self):
+        self.manager.screens[8].ids.idnum.text=''
+        self.manager.screens[8].ids.name.text = 'Name: '
+        self.manager.screens[8].ids.idnumb.text = 'ID: '
+        self.manager.screens[8].ids.age.text = 'Age: '
+        self.manager.screens[8].ids.gender.text = 'Gender: '
+        self.manager.screens[8].ids.nationality.text = 'Nationality: '
+        self.manager.screens[8].ids.smoker.text = 'Smoker: '
+        self.manager.screens[8].ids.bph.text = 'Blood pressure: '
+        self.manager.screens[8].ids.diabetes.text = 'Diabetes: '
+        self.manager.screens[8].ids.pregnant.text = 'Pregnant: '
+        self.manager.screens[8].ids.wbc.text = 'WBC: '
+        self.manager.screens[8].ids.fever.text = 'Neutrophil: '
+        self.manager.screens[8].ids.neutrophil.text = 'Fever: '
+        self.manager.screens[8].ids.lymphocytes.text = 'Lymphocytes: '
+        self.manager.screens[8].ids.rbc.text = 'RBC: '
+        self.manager.screens[8].ids.hct.text = 'HCT: '
+        self.manager.screens[8].ids.urea.text = 'Urea: '
+        self.manager.screens[8].ids.hemoglobin.text = 'Hemoglobin: '
+        self.manager.screens[8].ids.creatine.text = 'Creatine: '
+        self.manager.screens[8].ids.iron.text = 'Iron: '
+        self.manager.screens[8].ids.hdl.text = 'HDL: '
+        self.manager.screens[8].ids.alp.text = 'AlP: '
+        self.manager.screens[8].ids.treat.text='Diagnosis & treatment: '
+        self.manager.current = 'doctorlog'
+
+    def SaveToFile_btn(self):
+        if str(self.manager.screens[8].ids.idnum.text)!='':
+            file1=open(self.manager.screens[8].ids.idnum.text,"a")
+            file1.writelines("Those are results of patient: "+self.manager.screens[8].ids.idnum.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.name.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.idnumb.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.age.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.gender.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.nationality.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.smoker.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.bph.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.diabetes.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.pregnant.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.fever.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.wbc.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.neutrophil.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.lymphocytes.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.rbc.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.hct.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.urea.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.hemoglobin.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.creatine.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.iron.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.hdl.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.alp.text+"\n")
+            file1.writelines(self.manager.screens[8].ids.treat.text+"\n")
+
+            file1.close()
+
+            pop = MDDialog(title='Success!',text='Patient data and diagnisis has been saved to text file')
+
+            pop.open()
+
+
+
+        else:
+            pop = MDDialog(title='No data to save',text='check the id first')
+
+            pop.open()
+
+
     pass
 
 
-class PProfile(Screen):
+class CreatePatientProfile(Screen):
 
     def cancel_button(self):
         self.manager.screens[6].ids.pname.text = ''
@@ -864,10 +931,11 @@ class PProfile(Screen):
             self.manager.screens[6].ids.origincheck.text = '0'
             self.manager.current = 'doctorlog'
 
+
     pass
 
 
-class PProfile2(Screen):
+class AddPatientTests(Screen):#page of adding profile tests to the patient profile in the database
 
     def ID_btn(self):
         if self.manager.screens[7].ids.idnum.text == '':
@@ -1345,19 +1413,17 @@ class RegiWindo(Screen):
 
     def regibtn(self):
 
-        if self.id_box.text != '' and self.fullname_box.text != '' and self.dob.text != '' and self.username_box.text != '' and self.password_box.text != '':
-            if find_user(str(self.id_box.text)) == 0 and username_exist(self.ids.username.text) == 0:
-                users_data = {'Name': self.fullname_box.text, 'IDnum': self.id_box.text,
-                              'Username': self.username_box.text, 'DOB': self.dob.text, 'pass': self.password_box.text
-                    , 'Class': '11',
-                              'Title': str('Doctor')}
-                db.child("users").child(str(self.id_box.text)).set(users_data)
-                if str(self.id_box.text) == ("315198564"):
-                    db.child("users").child("315198564").update({'Title': 'Manager'})
-                print("account created successfully")
-            else:
-                self.sameuser()
+        if self.manager.screens[1].ids.idnum.text != '' and self.manager.screens[1].ids.f_name.text != '' and self.manager.screens[1].ids.date.text != '' and\
+                self.manager.screens[1].ids.username.text != '' and self.manager.screens[1].ids.pass_word.text != '':
+            if ID_check(self.manager.screens[1].ids.idnum.text) and username_check(self.manager.screens[1].ids.username.text) and password_check(self.manager.screens[1].ids.pass_word.text):
+                users_data = {'Name': self.manager.screens[1].ids.f_name.text, 'IDnum': self.manager.screens[1].ids.idnum.text,
+                              'Username': self.manager.screens[1].ids.username.text, 'DOB': self.manager.screens[1].ids.date.text, 'pass': self.manager.screens[1].ids.pass_word.text,'Title': str('Doctor')}
+                db.child("users").child(str(self.manager.screens[1].ids.idnum.text)).set(users_data)
+                pop = MDDialog(title='Success!', text='Your account has been created successfully ')
+                pop.open()
 
+
+                self.manager.current = 'menu'
         else:
             self.empty()
 
@@ -1393,44 +1459,21 @@ class Loginwindo(Screen):
     password_box = ObjectProperty(None)
 
     def logbtn(self):
-
-        logto = 0
-
-        if grantAccess(str(self.username_box.text), str(self.password_box.text)) == 1:
-
-            user_key = currentUser(str(self.username_box.text))
-            user = db.child("users").child(user_key).get()
-            ###init Tool bar names in whole logging in##
-            self.manager.screens[3].ids.managertoolbar.title = 'Welcome' + ' ' + user.val()['Name']
-
-            self.manager.screens[4].ids.test.title = 'Welcome' + ' '+str(user.val()['Title'])+'.'+ user.val()['Name']
+        print(self.manager.screens[2].ids)
 
 
-            '''self.manager.screens[7].ids.username.text = user.val()['Name']'''
-
-
-            '''self.manager.screens[10].ids.username.text = user.val()['Name']
-            ###page 11 Student page ###
-            self.manager.screens[11].ids.studenttoolbar.title = 'Welcome' + ' ' + user.val()['Name']
-            self.manager.screens[11].ids.username.text = user.val()['Username']
-            '''
-            db.child("Online").child(self.username_box.text).set("ok")
-
-            if str('Doctor') == str(user.val()['Title']):
-                logto = 1
-                self.manager.current = 'myprofile'
-            if str('Manager') == str(user.val()['Title']):
-                logto = 2
-
-            if logto == 2:
-                self.manager.current = 'MyProfile'
+        if grantAccess(self.manager.screens[2].ids.username.text, self.manager.screens[2].ids.pass_word.text,self.manager.screens[2].ids.idnum.text) == 1:
+            self.manager.screens[2].ids.username.text=''
+            self.manager.screens[2].ids.pass_word.text=''
+            self.manager.screens[2].ids.idnum.text=''
+            self.manager.current = 'doctorlog'
 
 
         else:
             self.invalid()
 
     def invalid(self):
-        dialog = MDDialog(title='Wrong Username or password')
+        dialog = MDDialog(title='Error!',text='There is error in one of the fields try again')
         dialog.open()
 
     pass
