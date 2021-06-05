@@ -63,7 +63,7 @@ ScreenManager:
                         OneLineIconListItem:
                             text:'Log in'
                             on_press:
-                                root.manager.current='doctorlog'
+                                root.manager.current='Login'
                             IconLeftWidget:
                                 icon:'login'
                               
@@ -273,7 +273,7 @@ ScreenManager:
     name:"myprofile"      
     MDToolbar:
         id:thisUser
-        title: 'My Profile'
+        title:
         elevation: 10
         pos_hint: {'top': 1}
     MDLabel:
@@ -308,11 +308,11 @@ ScreenManager:
         width:300
 
     MDRectangleFlatButton:
-        text:'Change'
+        text:'DoctorLog'
         pos_hint:{'center_x':0.8,'center_y':0.7} 
         width:300
         on_release:
-            root.manager.current='chname'
+            root.manager.current='doctorlog'
 
     MDRectangleFlatButton:
         text:'Change'
