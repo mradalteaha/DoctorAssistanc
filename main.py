@@ -166,8 +166,8 @@ class StreamPatientDiagnosis(Screen):
             self.manager.screens[8].ids.diabetes.text = 'Diabetes: ' + str(user.val()['Diabetes in family'])
             self.manager.screens[8].ids.pregnant.text = 'Pregnant: ' + str(user.val()['Pregnant'])
             self.manager.screens[8].ids.wbc.text = 'WBC: ' + str(user.val()['wbc'])
-            self.manager.screens[8].ids.fever.text = 'Neutrophil: ' + str(user.val()['Fever'])
-            self.manager.screens[8].ids.neutrophil.text = 'Fever: ' + str(user.val()['neutrophil'])
+            self.manager.screens[8].ids.fever.text = 'Fever: ' + str(user.val()['Fever'])
+            self.manager.screens[8].ids.neutrophil.text = 'Neutrophil: ' + str(user.val()['neutrophil'])
             self.manager.screens[8].ids.lymphocytes.text = 'Lymphocytes: ' + str(user.val()['lymphocytes'])
             self.manager.screens[8].ids.rbc.text = 'RBC: ' + str(user.val()['rbc'])
             self.manager.screens[8].ids.hct.text = 'HCT: ' + str(user.val()['hct'])
@@ -596,8 +596,8 @@ class StreamPatientDiagnosis(Screen):
         self.manager.screens[8].ids.diabetes.text = 'Diabetes: '
         self.manager.screens[8].ids.pregnant.text = 'Pregnant: '
         self.manager.screens[8].ids.wbc.text = 'WBC: '
-        self.manager.screens[8].ids.fever.text = 'Neutrophil: '
-        self.manager.screens[8].ids.neutrophil.text = 'Fever: '
+        self.manager.screens[8].ids.neutrophil.text = 'Neutrophil: '
+        self.manager.screens[8].ids.fever.text = 'Fever: '
         self.manager.screens[8].ids.lymphocytes.text = 'Lymphocytes: '
         self.manager.screens[8].ids.rbc.text = 'RBC: '
         self.manager.screens[8].ids.hct.text = 'HCT: '
@@ -717,7 +717,7 @@ class CreatePatientProfile(Screen):
         elif numbersonly(self.manager.screens[6].ids.age.text) == 0:
             pop = MDDialog(title='Error!', text='please insert numbers only')
             pop.open()
-        elif int(self.manager.screens[6].ids.age.text) < 0 or int(self.manager.screens[6].ids.age.text) > 200 or len(
+        elif int(self.manager.screens[6].ids.age.text) < 0 or int(self.manager.screens[6].ids.age.text) > 130 or len(
                 self.manager.screens[6].ids.age.text) > 3:
             pop = MDDialog(title='Error!', text='Invalid input')
             pop.open()
@@ -902,11 +902,7 @@ class CreatePatientProfile(Screen):
         elif int(self.manager.screens[6].ids.pregnantcheck.text) != 1:
             pop = MDDialog(title='Error!', text='check the patient pregnant input !')
             pop.open()
-        elif int(self.manager.screens[6].ids.idnumcheck.text) and int(
-                self.manager.screens[6].ids.pnamecheck.text) and int(self.manager.screens[6].ids.agecheck.text) and int(
-            self.manager.screens[6].ids.smokercheck.text) and int(
-            self.manager.screens[6].ids.diabetescheck.text) and int(
-            self.manager.screens[6].ids.bphcheck.text) and int(self.manager.screens[6].ids.origincheck.text):
+        elif int(self.manager.screens[6].ids.idnumcheck.text) and int(self.manager.screens[6].ids.pnamecheck.text) and int(self.manager.screens[6].ids.agecheck.text) and int(self.manager.screens[6].ids.smokercheck.text) and int(self.manager.screens[6].ids.diabetescheck.text) and int(self.manager.screens[6].ids.bphcheck.text) and int(self.manager.screens[6].ids.origincheck.text):
             pop = MDDialog(title='Success!', text='The patient profile has been created !')
             pop.open()
             self.manager.screens[6].ids.pname.text = ''
