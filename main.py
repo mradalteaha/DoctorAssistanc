@@ -266,11 +266,11 @@ class StreamPatientDiagnosis(Screen):
 
     def lymphocytes_test(self):
         user = db.child("patients").child(self.manager.screens[8].ids.idnum.text).get()
-        if int(str(user.val()['neutrophil'])) < 36:
+        if int(str(user.val()['lymphocytes'])) < 36:
             self.manager.screens[8].ids.lymphocytes.text_color = (210, 210, 10, 1)
             db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "Blood Creation problems").set("1 table of 10mg B12 and 1 table 5mg folic acid once a day for month")
-        elif int(str(user.val()['neutrophil'])) > 54:
+        elif int(str(user.val()['lymphocytes'])) > 54:
             self.manager.screens[8].ids.lymphocytes.text_color = (209, 10, 25, 1)
             d = db.child("patients").child(self.manager.screens[8].ids.idnum.text).child("diseases").child(
                 "cancer").get()
