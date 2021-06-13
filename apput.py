@@ -46,7 +46,7 @@ class TestUser(unittest.TestCase):
     def test_currentuser(self):
         '''this test return the id of the current users'''
         from main import currentUser
-        self.assertEqual('209102250',currentUser('asd'),"returned the username ")
+        self.assertEqual('209102250',currentUser('abdal98'),"returned the username ")
         self.assertNotEqual('123456',currentUser('abd10'),"not the username of this id")
 
 
