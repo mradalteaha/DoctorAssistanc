@@ -12,14 +12,14 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.button import Button
 
 firebaseConfig = {
-            'apiKey': "AIzaSyAxS1KDjH4OQrbw-k050yGJHQ8giCuyFDU",
-            'authDomain': "project16-f346d.firebaseapp.com",
-            'databaseURL': "https://project16-f346d-default-rtdb.firebaseio.com/",
-            'projectId': "project16-f346d",
-            'storageBucket': "project16-f346d.appspot.com",
-            'messagingSenderId': "237946682699",
-            'appId': "1:237946682699:web:59b0610e150f5c42b7bcce",
-            'measurementId': "G-W8TSC422XT"}
+             'apiKey': "AIzaSyCVxh3zfkNPlbPTaUmhHgIRISlWl6l4qBY",
+    'authDomain': "doctorassistance-bce5c.firebaseapp.com",
+    'databaseURL': "https://doctorassistance-bce5c-default-rtdb.firebaseio.com",
+    'projectId': "doctorassistance-bce5c",
+    'storageBucket': "doctorassistance-bce5c.appspot.com",
+    'messagingSenderId': "1046807573992",
+    'appId': "1:1046807573992:web:bb926a9a210d49f2f4a05d",
+    'measurementId': "G-77QNZ4D0VQ"}
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 auth = firebase.auth()
@@ -40,8 +40,8 @@ class TestUser(unittest.TestCase):
     def test_granaccess(self):
         '''this test to check if  username and the password are correct and grant user acces'''
         from main import grantAccess
-        self.assertEqual(1,grantAccess('asd','asd'),"Grant access")
-        self.assertEqual(0, grantAccess('abd10', '6548'), "Wrong password")
+        self.assertEqual(1,grantAccess('asd','asd','209102250'),"Grant access")
+        self.assertEqual(0, grantAccess('abd10', '6548','050'), "Wrong password")
 
     def test_currentuser(self):
         '''this test return the id of the current users'''
@@ -56,6 +56,7 @@ from kivy.uix.textinput import TextInput
 
 
 class TestGraphic(GraphicUnitTest):
+    '''This GUI test create a button and test the press function'''
     def test_testButton(self):
         def test_button(self):
             from kivy.uix.widget import Widget
