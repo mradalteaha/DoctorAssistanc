@@ -166,7 +166,7 @@ class StreamPatientDiagnosis(Screen):
             self.manager.screens[8].ids.diabetes.text = 'Diabetes: ' + str(user.val()['Diabetes in family'])
             self.manager.screens[8].ids.pregnant.text = 'Pregnant: ' + str(user.val()['Pregnant'])
             self.manager.screens[8].ids.wbc.text = 'WBC: ' + str(user.val()['wbc'])
-            self.manager.screens[8].ids.fever.text = 'Fever: ' + str(user.val()['Fever'])
+            self.manager.screens[8].ids.fever.text = 'Fever: ' + str(user.val()['Fever'])#it was duplicated
             self.manager.screens[8].ids.neutrophil.text = 'Neutrophil: ' + str(user.val()['neutrophil'])
             self.manager.screens[8].ids.lymphocytes.text = 'Lymphocytes: ' + str(user.val()['lymphocytes'])
             self.manager.screens[8].ids.rbc.text = 'RBC: ' + str(user.val()['rbc'])
