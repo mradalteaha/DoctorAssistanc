@@ -36,7 +36,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(1,username_exist('morad98'),"user name exists in data base")
         self.assertEqual(0, username_exist('ZZZZZ'),"user name doesnt exist in data base")
 
-    def test_granaccess(self):
+    def test_granaccess(self):#shayef hne
         '''this test to check if  username and the password are correct and grant user acces'''
         from main import grantAccess
         self.assertEqual(1,grantAccess('morad98','m@123456','123321123'),"Grant access")
